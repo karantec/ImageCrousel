@@ -1,8 +1,6 @@
 // PhotoSearch.js
 import  { useState, useEffect } from 'react';
-import axios from 'axios';
-import Modal from 'react-modal';
-Modal.setAppElement('#root');
+
 
 
 const Searchbar = () => {
@@ -10,6 +8,15 @@ const Searchbar = () => {
   const [photos, setPhotos] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const url = `https://api.unsplash.com/search/photos/?query=${query}&client_id=O0qM1D498Z1Xs2utEhu6wvtRsRVWE4GzfecUIAf6joU`;
+  
+  
+  const searchPhotos = () => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setPhotos(data.results))
+      .catch((error) => console.error(error));
+  };
 
   useEffect(() => {
     if (query) {
@@ -17,21 +24,6 @@ const Searchbar = () => {
     }
   }, [query]);
 
-  const searchPhotos = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.unsplash.com/search/photos/?query=${query}`,
-        {
-          headers: {
-            Authorization: 'Client-ID O0qM1D498Z1Xs2utEhu6wvtRsRVWE4GzfecUIAf6joU',
-          },
-        }
-      );
-      setPhotos(response.data.results);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   
 
   
@@ -50,9 +42,7 @@ const Searchbar = () => {
     <div className='max-w-md mx-auto mt-5'>
     <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
         <div className="grid place-items-center h-full w-12 text-gray-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+           
        </div>
       <input
         type="text"
@@ -101,7 +91,7 @@ const Searchbar = () => {
                 <h3 className="text-2xl font-semibold">User Details</h3>
                 <p>Name: {selectedPhoto.user.name}</p>
                 <p>Username: {selectedPhoto.user.username}</p>
-                {/* Add more user details as needed */}
+                {/* {/* Add more user details as needed * */}
               </div>
               <div>
                 <h3 className="text-2xl font-semibold">Photo Details</h3>
