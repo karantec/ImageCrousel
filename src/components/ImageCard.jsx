@@ -62,7 +62,7 @@ const ImageCard = () => {
                 &times;
               </button>
                  
-              <img src={selectedPhoto.urls.small} alt={selectedPhoto.alt_description} className="w-full h-auto rounded-lg shadow-lg" />
+              <img src={selectedPhoto.urls.small} alt={selectedPhoto.alt_description} className="h-auto max-w-xs rounded-lg shadow-lg" />
               <div className="my-4">
                 <h3 className="text-2xl font-semibold">User Details</h3>
                 <p>Name: {selectedPhoto.user.name}</p>
